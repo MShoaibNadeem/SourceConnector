@@ -1,0 +1,87 @@
+[
+    {
+        "name": "PostgreSQL",
+        "type": "Database",
+        "image_path": "public/images/postgres.png"
+    },
+    {
+        "name": "MongoDB",
+        "type": "Database",
+        "image_path": "public/images/mongo.png"
+    },
+    {
+        "name": "MySQL",
+        "type": "Database",
+        "image_path": "public/images/mysql.png"
+    },
+    {
+        "name": "SQLite",
+        "type": "Database",
+        "image_path": "public/images/sqlite.png"
+    },
+    {
+        "name": "SQL Server",
+        "type": "Database",
+        "image_path": "public/images/sqlserver.png"
+    },
+    {
+        "name": "Oracle",
+        "type": "Database",
+        "image_path": "public/images/oracle.png"
+    },
+    {
+        "name": "Redis",
+        "type": "Database",
+        "image_path": "public/images/redis.png"
+    },
+    {
+        "name": "Amazon S3",
+        "type": "Storage",
+        "image_path": "public/images/amazon.png"
+    },
+    {
+        "name": "Google Cloud Storage",
+        "type": "Storage",
+        "image_path": "public/images/googlecloud.png"
+    },
+    {
+        "name": "Dropbox",
+        "type": "Storage",
+        "image_path": "public/images/dropbox.png"
+    },
+    {
+        "name": "FTP Server",
+        "type": "File Transfer",
+        "image_path": "public/images/ftp-server.png"
+    },
+    {
+        "name": "REST API",
+        "type": "API",
+        "image_path": "public/images/rest-api.png"
+    },
+    {
+        "name": "GraphQL API",
+        "type": "API",
+        "image_path": "public/images/graphql-api.png"
+    },
+    {
+        "name": "CSV File",
+        "type": "File",
+        "image_path": "public/images/csv-file.png"
+    },
+    {
+        "name": "Excel File",
+        "type": "File",
+        "image_path": "public/images/excel-file.png"
+    },
+    {
+        "name": "JSON File",
+        "type": "File",
+        "image_path": "public/images/json-file.png"
+    },
+    {
+        "name": "XML File",
+        "type": "File",
+        "image_path": "public/images/xml-file.png"
+    }
+]
