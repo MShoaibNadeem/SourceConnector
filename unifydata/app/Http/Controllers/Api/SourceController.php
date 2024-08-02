@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Source;
 use App\Models\AvailableSource;
-use App\Http\Controllers\Controller;
-use OpenAI\Client as OpenAIClient;
+use App\Models\SourceRequirements;
 use Gemini\Laravel\Facades\Gemini;
+use OpenAI\Client as OpenAIClient;
+use App\Http\Controllers\Controller;
 
 
 class SourceController extends Controller
@@ -26,44 +27,57 @@ class SourceController extends Controller
 
     public function getConnectorRequirements($id)
     {
-        $type = AvailableSource::select('type')->where('_id', '=', $id)->get();
-        $name = AvailableSource::select('name')->where('_id', '=', $id)->get();
+        $source = AvailableSource::select('type', 'name')->where('_id', '=', $id)->firstOrFail();
+        $type = $source->type;
+        $name = $source->name;
 
-        $type->makeHidden('_id');
-        $name->makeHidden('_id');
+        // $type->makeHidden('_id');
+        // $name->makeHidden('_id');
+
+        $requirements = SourceRequirements::where('type', $type)->where('name', $name)->first();
+
+        if ($requirements) {
+            // Return the stored requirements
+            return response()->json(json_decode($requirements->requirements, true));
+        }
 
         // Query OpenAI for the required fields for this type
         $requirements = $this->fetchRequirementsFromOpenAI($type, $name);
+
+        // Ensure $type and $name are JSON encoded if they are arrays/objects
+        $typeJson = is_array($type) || is_object($type) ? json_encode($type) : $type;
+        $nameJson = is_array($name) || is_object($name) ? json_encode($name) : $name;
+
+        SourceRequirements::create([
+            'type' => $typeJson,
+            'name' => $nameJson,
+            'requirements' => json_encode($requirements)
+        ]);
 
         return response()->json($requirements);
 
     }
     private function fetchRequirementsFromOpenAI($type, $name)
     {
-        $prompt = "I need to connect to a source in an ETL application. The source details are as follows:
-        Name: $name
-        Type: $type
-        Please provide the necessary configuration parameters to connect to a source as a JSON object with key-value pairs. Provide only keys not values.
-        Provide only those fields that are must required to establish a connection and skip optional ones.
-        Should be same to the one's airbyte asks while creating a source";
+        $prompt = "I want to recieve custom configurations from a user for the selected source $name its type is $type provide me with all the necessary parameters required to establish a connection with a live source along with the optional security parameters if neeeded make a document attributes with necessary and optional parameters as an objet init and each parameter in the objects should be a key and there description and data type should also be in the object of the key and provide me in json";
+
         // This is a placeholder function. You would use the OpenAI API here.
         $response = Gemini::geminiPro()->generateContent($prompt);
 
+        //Fetching only required part from the response
         $textContent = $response->candidates[0]->content->parts[0]->text;
 
-       // dd($textContent);
+        //Removing json keyword from the response
+        $jsonString = str_replace('json', '', $textContent);
+
+        // Removing ``` from beginning and end
+        $trimmedText = trim($jsonString, '`');
 
 
-        // Trim any extra whitespace or newlines
-        $trimmedText = trim($textContent);
+        // Decode the JSON string into a PHP associative array
+        $jsonObject = json_decode($trimmedText, true);
 
-        // dd($trimmedText);
 
-        // // Decode the JSON string into a PHP associative array
-        // $jsonObject = json_decode($trimmedText,true);
-        // dd($jsonObject);
-        // //$requirements = $response->text();
-        // return response()->json($jsonObject);
-        return $trimmedText;
+        return response()->json($jsonObject);
     }
 }

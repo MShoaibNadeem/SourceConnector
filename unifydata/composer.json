@@ -7,9 +7,9 @@
     "require": {
         "php": "^8.2",
         "google-gemini-php/laravel": "^1.0",
-        "jenssegers/mongodb": "^4.7",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
+        "mongodb/laravel-mongodb": "^4.7",
         "openai-php/client": "^0.10.1"
     },
     "require-dev": {

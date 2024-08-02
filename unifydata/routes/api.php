@@ -11,11 +11,8 @@ Route::get('/user', function (Request $request) {
 Route::prefix('sources')->group(function () {
     Route::controller(SourceController::class)->group(function () {
         Route::get('/existing', 'index');
-        Route::get('/search/{name}', 'search');
-        Route::get('/get-requirements/{id}', 'getConnectorRequirements');
+        Route::get('/search/{name}', 'search')->whereAlphaNumeric('name');
+        Route::get('/get-requirements/{id}', 'getConnectorRequirements')->whereAlphaNumeric('id');
     });
 
 });
-
-
-Route::post('/createavailablesource',[SourceController::class,'createAvailableSource'])->middleware('Validation:Source');
