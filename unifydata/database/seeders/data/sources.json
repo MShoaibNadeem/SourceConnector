@@ -1,87 +1,237 @@
 [
     {
-        "name": "PostgreSQL",
-        "type": "Database",
-        "image_path": "public/images/postgres.png"
+        "name": "Twitter API",
+        "type": "API",
+        "image": "public/images/twitter.png"
     },
     {
-        "name": "MongoDB",
-        "type": "Database",
-        "image_path": "public/images/mongo.png"
+        "name": "Facebook API",
+        "type": "API",
+        "image": "public/images/facebook.png"
+    },
+    {
+        "name": "Google Sheets API",
+        "type": "API",
+        "image":"public/images/google-sheets.png"
+    },
+    {
+        "name": "Dropbox API",
+        "type": "API",
+        "image": "public/images/dropbox.png"
+    },
+    {
+        "name": "OneDrive API",
+        "type": "API",
+        "image": "public/images/onedrive.png"
+    },
+    {
+        "name": "AWS S3",
+        "type": "Cloud Storage",
+        "image": "public/images/amazon.png"
+    },
+    {
+        "name": "Google Cloud Storage",
+        "type": "Cloud Storage",
+        "image": "public/images/googlecloud.png"
+    },
+    {
+        "name": "Azure Blob Storage",
+        "type": "Cloud Storage",
+        "image":"public/images/Azure.png"
     },
     {
         "name": "MySQL",
         "type": "Database",
-        "image_path": "public/images/mysql.png"
+        "image": "public/images/mysql.png"
+    },
+    {
+        "name": "PostgreSQL",
+        "type": "Database",
+        "image": "public/images/postgres.png"
+    },
+    {
+        "name": "MongoDB",
+        "type": "Database",
+        "image": "public/images/mongo.png"
     },
     {
         "name": "SQLite",
         "type": "Database",
-        "image_path": "public/images/sqlite.png"
+        "image": "public/images/sqlite.png"
     },
     {
-        "name": "SQL Server",
+        "name": "Microsoft SQL Server",
         "type": "Database",
-        "image_path": "public/images/sqlserver.png"
+        "image": "public/images/sqlserver.png"
     },
     {
-        "name": "Oracle",
+        "name": "Oracle Database",
         "type": "Database",
-        "image_path": "public/images/oracle.png"
+        "image": "public/images/oracle.png"
+    },
+    {
+        "name": "Firebase Realtime Database",
+        "type": "Database",
+        "image": "public/images/firebase.png"
+    },
+    {
+        "name": "Amazon RDS",
+        "type": "Database",
+        "image": "public/images/amazonrds.png"
+    },
+    {
+        "name": "IBM Db2",
+        "type": "Database",
+        "image":"public/images/ibm.png"
+    },
+    {
+        "name": "Cassandra",
+        "type": "Database",
+        "image": "public/images/cassandra.png"
     },
     {
         "name": "Redis",
         "type": "Database",
-        "image_path": "public/images/redis.png"
+        "image":"public/images/redis.png"
     },
     {
-        "name": "Amazon S3",
-        "type": "Storage",
-        "image_path": "public/images/amazon.png"
+        "name": "DynamoDB",
+        "type": "Database",
+        "image": "public/images/dynamo.png"
     },
     {
-        "name": "Google Cloud Storage",
-        "type": "Storage",
-        "image_path": "public/images/googlecloud.png"
+        "name": "Elasticsearch",
+        "type": "Database",
+        "image": "public/images/elasticsearch.png"
     },
     {
-        "name": "Dropbox",
-        "type": "Storage",
-        "image_path": "public/images/dropbox.png"
+        "name": "InfluxDB",
+        "type": "Database",
+        "image": "public/images/influx.png"
     },
     {
-        "name": "FTP Server",
-        "type": "File Transfer",
-        "image_path": "public/images/ftp-server.png"
+        "name": "Apache HBase",
+        "type": "Database",
+        "image": "public/images/Hbase.png"
     },
     {
-        "name": "REST API",
+        "name": "Google BigQuery",
+        "type": "Database",
+        "image": "public/images/bigquery.png"
+    },
+    {
+        "name": "Snowflake",
+        "type": "Database",
+        "image": "public/images/snowflake.png"
+    },
+    {
+        "name": "Apache Kafka",
+        "type": "Streaming Service",
+        "image":"public/images/kafka.png"
+    },
+    {
+        "name": "Amazon Kinesis",
+        "type": "Streaming Service",
+        "image":"public/images/Kinesis.png"
+    },
+    {
+        "name": "Azure Stream Analytics",
+        "type": "Streaming Service",
+        "image":"public/images/azurestream.png"
+    },
+    {
+        "name": "Google Cloud Pub/Sub",
+        "type": "Streaming Service",
+        "image":"public/images/pubsub.png"
+    },
+    {
+        "name": "RabbitMQ",
+        "type": "Messaging Queue",
+        "image":"public/images/rabitmq.png"
+    },
+    {
+        "name": "Apache ActiveMQ",
+        "type": "Messaging Queue",
+        "image":"public/images/activemq.png"
+    },
+    {
+        "name": "Apache Pulsar",
+        "type": "Messaging Queue",
+        "image":"public/images/pulsar1.png"
+    },
+    {
+        "name": "JIRA API",
         "type": "API",
-        "image_path": "public/images/rest-api.png"
+        "image":"public/images/jira.png"
     },
     {
-        "name": "GraphQL API",
+        "name": "Trello API",
         "type": "API",
-        "image_path": "public/images/graphql-api.png"
+        "image":"public/images/trello.png"
     },
     {
-        "name": "CSV File",
-        "type": "File",
-        "image_path": "public/images/csv-file.png"
+        "name": "Slack API",
+        "type": "API",
+        "image":"public/images/slack.png"
     },
     {
-        "name": "Excel File",
-        "type": "File",
-        "image_path": "public/images/excel-file.png"
+        "name": "GitHub API",
+        "type": "API",
+        "image":"public/images/github.png"
     },
     {
-        "name": "JSON File",
-        "type": "File",
-        "image_path": "public/images/json-file.png"
+        "name": "GitLab API",
+        "type": "API",
+        "image":"public/images/gitlab.png"
     },
     {
-        "name": "XML File",
-        "type": "File",
-        "image_path": "public/images/xml-file.png"
+        "name": "Bitbucket API",
+        "type": "API",
+        "image":"public/images/bitbucket.png"
+    },
+    {
+        "name": "Salesforce API",
+        "type": "API",
+        "image":"public/images/salesforce.png"
+    },
+    {
+        "name": "HubSpot API",
+        "type": "API",
+        "image":"public/images/hubspot.png"
+    },
+    {
+        "name": "Zendesk API",
+        "type": "API",
+        "image":"public/images/zendesk.png"
+    },
+    {
+        "name": "Stripe API",
+        "type": "API",
+        "image":"public/images/stripe.png"
+    },
+    {
+        "name": "PayPal API",
+        "type": "API",
+        "image":"public/images/paypal.png"
+    },
+    {
+        "name": "Square API",
+        "type": "API",
+        "image":"public/images/square.png"
+    },
+    {
+        "name": "Shopify API",
+        "type": "API",
+        "image":"public/images/shopify.png"
+    },
+    {
+        "name": "Magento API",
+        "type": "API",
+        "image":"public/images/magento.png"
+    },
+    {
+        "name": "WooCommerce API",
+        "type": "API",
+        "image":"public/images/woocommerce.png"
     }
 ]

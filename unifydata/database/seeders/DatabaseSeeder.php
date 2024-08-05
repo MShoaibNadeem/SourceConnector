@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             // Loop through each source and create the record
             foreach ($sources as $source) {
                 // Get the image path
-                $imagePath = base_path($source['image_path']);
+                $imagePath = base_path($source['image']);
 
                 // Create the source with the Base64 encoded image
                 try {

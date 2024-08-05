@@ -11,8 +11,10 @@ Route::get('/user', function (Request $request) {
 Route::prefix('sources')->group(function () {
     Route::controller(SourceController::class)->group(function () {
         Route::get('/existing', 'index');
+        Route::get('/get-sources', 'getAvailableSources');
         Route::get('/search/{name}', 'search')->whereAlphaNumeric('name');
         Route::get('/get-requirements/{id}', 'getConnectorRequirements')->whereAlphaNumeric('id');
+        Route::post('/test-connection', 'testConnection');
     });
 
 });
