@@ -1,13 +1,11 @@
 <?php
-
-namespace App\Services\Connectors;
-
+namespace App\Connectors;
 use Predis\Client;
 use Exception;
 
-class RedisConnector implements ConnectorInterface
+class RedisConnector implements ConnectionTesterInterface
 {
-    public function testConnection($type,$name,$configurations)
+    public function testConnection($configurations)
     {
         $client = new Client([
             'scheme' => $configurations['scheme'] ?? 'tcp',

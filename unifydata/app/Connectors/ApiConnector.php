@@ -1,14 +1,10 @@
 <?php
-
-namespace App\Services\Connectors;
-
-use GuzzleHttp\Client;
+namespace App\Connectors;
 use Illuminate\Support\Facades\Http;
-use GuzzleHttp\Exception\RequestException;
 
-class ApiConnector implements ConnectorInterface
+class ApiConnector implements ConnectionTesterInterface
 {
-    public function testConnection($type, $name, array $configurations)
+    public function testConnection(array $configurations)
     {
         $url = $configurations['base_url'];
         $response = $this->makeAuthenticatedRequest($url, $configurations['auth_type'], $configurations['auth_credentials']);

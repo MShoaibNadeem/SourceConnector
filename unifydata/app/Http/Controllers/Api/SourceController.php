@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Api;
 
 use PDOException;
 use App\Models\Source;
-use Illuminate\Http\Request;
 use App\Models\AvailableSource;
 use App\Models\SourceRequirements;
 use Gemini\Laravel\Facades\Gemini;
-use MongoDB\Client as MongoClient;
-use OpenAI\Client as OpenAIClient;
 use App\Http\Controllers\Controller;
-use Illuminate\Container\Container;
-use App\Services\Connectors\ConnectorInterface;
-use Illuminate\Foundation\Exceptions\Renderer\Exception;
+use App\Factories\ConnectionTesterFactory;
+use Illuminate\Http\Request;
+
+// use Illuminate\Container\Container;
+// use App\Services\Connectors\ConnectorInterface;
+// use Illuminate\Foundation\Exceptions\Renderer\Exception;
 
 
 class SourceController extends Controller
@@ -92,48 +92,66 @@ class SourceController extends Controller
     public function testConnection(Request $request)
     {
 
-
-        // $validatedData = $request->validate([
-        //     'type' => 'required|string',
-        //     'name' => 'required|string',
-        //     'host' => 'required|string',
-        //     'port' => 'required|string',
-        //     'database' => 'required|string',
-        // ]);
         $configurations = [
-            'base_url' => $request->input('base_url'),
-            'auth_type' => $request->input('auth_type'),
-            'auth_credentials' => $request->input('auth_credentials', []),
+            'name' => $request->input('name'),
+            'type' => $request->input('type'),
+            'host' => $request->input('host'),
+            'port' => $request->input('port'),
+            'username'=>$request->input('username'),
+            'password'=>$request->input('password'),
+            'database' => $request->input('database'),
         ];
 
-        // Validate the request data
-        $validated= $request->validate([
+
+        $validated = $request->validate([
+            'type' => 'required|string',
             'name' => 'required|string',
-            'base_url' => 'required|url',
-            'auth_type' => 'required|string',
-            'auth_credentials' => 'nullable|array',
+            'host' => 'required|string',
+            'username' => 'nullable|string',
+            'password' => 'nullable|string',
+            'port' => 'required|string',
+            'database' => 'required|string',
         ]);
+        // dd($request->input('type'));
+        // $configurations = [
+        //     'name' => $request->input('name'),
+        //     'type' => $request->input('type'),
+        //     'base_url' => $request->input('base_url'),
+        //     'auth_type' => $request->input('auth_type'),
+        //     'auth_credentials' => $request->input('auth_credentials'),
+        // ];
 
-        $type=$validated['type'];
-        $name=$validated['name'];
+        // // Validate the request data
+        // $validated= $request->validate([
+        //     'name' => 'required|string',
+        //     'type'=>'required|string',
+        //     'base_url' => 'required|url',
+        //     'auth_type' => 'required|string',
+        //     'auth_credentials' => 'nullable|array',
+        // ]);
 
-        $connector = Container::getInstance()->make(ConnectorInterface::class, ['type' => $type]);
+        $type = $validated['type'];
+
+        $name = $validated['name'];
 
         try {
-            $result = $connector->testConnection($type,$name,$configurations);
-            return response()->json($result);
+            // Instantiate the appropriate connection tester
+            $tester = ConnectionTesterFactory::create($type, $name);
+            $result = $tester->testConnection($configurations);
+
+            // dd($result);
+
+            return response()->json([
+                'success' => $result,
+                'message' => $result ? 'Connection successful!' : 'Connection failed.',
+            ]);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Connection failed', 'error' => $e->getMessage()]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Connection failed',
+                'error' => $e->getMessage(),
+            ]);
         }
-
-        // $type = $validatedData['type'];
-        // $name = $validatedData['name'];
-        // $host = $validatedData['host'];
-        // $port = $validatedData['port'];
-        // $database = $validatedData['database'];
-
-
-        // dd($connectionString);
 
     }
 

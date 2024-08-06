@@ -1,14 +1,12 @@
 <?php
-
-namespace App\Services\Connectors;
-
+namespace App\Connectors;
 use Exception;
 use Elastic\Elasticsearch\ClientBuilder;
 
 
-class ElasticsearchConnector implements ConnectorInterface
+class ElasticsearchConnector implements ConnectionTesterInterface
 {
-    public function testConnection($type,$name,$configurations)
+    public function testConnection($configurations)
     {
         $client = ClientBuilder::create()
             ->setHosts($configurations['hosts'])

@@ -1,13 +1,11 @@
 <?php
-
-namespace App\Services\Connectors;
-
+namespace App\Connectors;
 use InfluxDB2\Client;
 use Exception;
 
-class InfluxDBConnector implements ConnectorInterface
+class InfluxDBConnector implements ConnectionTesterInterface
 {
-    public function testConnection($type,$name,$configurations)
+    public function testConnection($configurations)
     {
         $client = new Client([
             'url' => $configurations['url'],
