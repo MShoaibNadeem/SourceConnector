@@ -14,6 +14,6 @@ Route::prefix('sources')->group(function () {
         Route::get('/get-sources', 'getAvailableSources');
         Route::get('/search/{name}', 'search')->whereAlphaNumeric('name');
         Route::get('/get-requirements/{id}', 'getConnectorRequirements')->whereAlphaNumeric('id');
-        Route::post('/test-connection', 'testConnection');
+        Route::post('/test-connection/{id}', 'testConnection')->middleware('Validation:ReqValidate');
     });
 });

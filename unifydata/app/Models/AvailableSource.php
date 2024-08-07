@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use MongoDB\Laravel\Eloquent\Model;
 use Illuminate\Support\Facades\File;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class AvailableSource extends Model
 {
@@ -15,6 +16,15 @@ class AvailableSource extends Model
         'type',
         'image',
     ];
+    public static function getSourceById($id)
+    {
+        $source = self::select('type', 'name')->where('_id', '=', $id)->first();
+
+        if (!$source) {
+            throw new ModelNotFoundException('Source not found');
+        }
+        return $source;
+    }
 
     public static function fetchDataFromJson($jsonPath)
     {

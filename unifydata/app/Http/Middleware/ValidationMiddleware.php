@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Requests\AvailableSourceRequest;
 use Closure;
 use Illuminate\Http\Request;
+use App\Models\AvailableSource;
+use App\Http\Requests\TestConnectionRequest;
+use App\Http\Requests\AvailableSourceRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class ValidationMiddleware
@@ -18,7 +20,22 @@ class ValidationMiddleware
     {
 
         if ($key === 'Source') {
+
             app(AvailableSourceRequest::class);
+        }
+        if ($key === 'ReqValidate') {
+            $id = $request->route('id');
+            $source = AvailableSource::getSourceById($id);
+            $type = $source->type;
+            $name = $source->name;
+
+            // Merge the fetched data into the request
+            $request->merge([
+                'type' => $type,
+                'name' => $name,
+            ]);
+
+            app(TestConnectionRequest::class);
         }
         return $next($request);
     }

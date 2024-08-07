@@ -6,7 +6,7 @@ use Gemini\Laravel\Facades\Gemini;
 
 class RelationalConnector implements ConnectionTesterInterface
 {
-    public function testConnection($configurations)
+    public function testConnection($type,$name,$configurations)
     {
         $username=$configurations['username'];
         $password=$configurations['password'];

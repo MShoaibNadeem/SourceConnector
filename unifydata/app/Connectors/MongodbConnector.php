@@ -7,7 +7,7 @@ use MongoDB\Exception\Exception as MongoException;
 
 class MongoDBConnector implements ConnectionTesterInterface
 {
-    public function testConnection($configurations)
+    public function testConnection($type,$name,$configurations)
     {
         $host = $configurations['host'];
         $port = $configurations['port'];

@@ -5,7 +5,7 @@ use Exception;
 
 class InfluxDBConnector implements ConnectionTesterInterface
 {
-    public function testConnection($configurations)
+    public function testConnection($type,$name,$configurations)
     {
         $client = new Client([
             'url' => $configurations['url'],

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Http;
 
 class ApiConnector implements ConnectionTesterInterface
 {
-    public function testConnection(array $configurations)
+    public function testConnection($type,$name,array $configurations)
     {
         $url = $configurations['base_url'];
         $response = $this->makeAuthenticatedRequest($url, $configurations['auth_type'], $configurations['auth_credentials']);

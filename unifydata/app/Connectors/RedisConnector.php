@@ -5,7 +5,7 @@ use Exception;
 
 class RedisConnector implements ConnectionTesterInterface
 {
-    public function testConnection($configurations)
+    public function testConnection($type,$name,$configurations)
     {
         $client = new Client([
             'scheme' => $configurations['scheme'] ?? 'tcp',

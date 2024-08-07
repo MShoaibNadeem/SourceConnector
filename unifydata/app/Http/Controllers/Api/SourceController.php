@@ -89,56 +89,29 @@ class SourceController extends Controller
 
         return response()->json($jsonObject);
     }
-    public function testConnection(Request $request)
+    public function testConnection(Request $request,$id)
     {
-
-        // $source = AvailableSource::select('type', 'name')->where('_id', '=', $id)->firstOrFail();
-        // $type = $source->type;
-        // $name = $source->name;
-        $type = 'Database';
-        $name = "PostgresSQL";
-
-        $request->merge([
-            'type' => $type,
-            'name' => $name,
-        ]);
-        // Validate the request data
-        $validated = $request->validate([
-            'name' => 'required',
-            'type' => 'required',
-            'base_url' => 'required_if:type,API|url',
-            'auth_type' => 'required_if:type,API|string',
-            'auth_credentials' => 'required_if:type,API|array|nullable',
-            'host' => 'required_if:type,Database|string',
-            'port' => 'required_if:type,Database|string',
-            'username' => 'required_if:type,Database|string|nullable',
-            'password' => 'required_if:type,Database|string|nullable',
-            'database' => 'required_if:type,Database|string',
-            // Add other conditional rules as needed for different types
-        ]);
+        dd($request);
         // Extract validated data and filter out null values
         $configurations = array_filter([
-            'name' => $validated['name'],
-            'type' => $validated['type'],
-            'base_url' => $validated['base_url'] ?? null,
-            'auth_type' => $validated['auth_type'] ?? null,
-            'auth_credentials' => $validated['auth_credentials'] ?? null,
-            'host' => $validated['host'] ?? null,
-            'port' => $validated['port'] ?? null,
-            'username' => $validated['username'] ?? null,
-            'password' => $validated['password'] ?? null,
-            'database' => $validated['database'] ?? null,
+            'base_url' => $request['base_url'] ?? null,
+            'auth_type' => $request['auth_type'] ?? null,
+            'auth_credentials' => $request['auth_credentials'] ?? null,
+            'host' => $request['host'] ?? null,
+            'port' => $request['port'] ?? null,
+            'username' => $request['username'] ?? null,
+            'password' => $request['password'] ?? null,
+            'database' => $request['database'] ?? null,
         ], function ($value) {
             return !is_null($value);
         });
 
-        $type = $validated['type'];
-        $name = $validated['name'];
-
+        $type = $request['type'];
+        $name = $request['name'];
         try {
             // Instantiate the appropriate connection tester
             $tester = ConnectionTesterFactory::create($type, $name);
-            $result = $tester->testConnection($configurations);
+            $result = $tester->testConnection($type,$name,$configurations);
 
             // dd($result);
 

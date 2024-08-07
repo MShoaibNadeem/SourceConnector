@@ -6,7 +6,7 @@ use Elastic\Elasticsearch\ClientBuilder;
 
 class ElasticsearchConnector implements ConnectionTesterInterface
 {
-    public function testConnection($configurations)
+    public function testConnection($type,$name,$configurations)
     {
         $client = ClientBuilder::create()
             ->setHosts($configurations['hosts'])
