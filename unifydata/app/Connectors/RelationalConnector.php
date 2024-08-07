@@ -8,14 +8,13 @@ class RelationalConnector implements ConnectionTesterInterface
 {
     public function testConnection($configurations)
     {
-        dd("hello");
         $username=$configurations['username'];
         $password=$configurations['password'];
         // $connectionString = $this->fetchConnectionStringFromGemini($configurations);
         //dd($connectionString);
 
         $dsn=$this->getDsn($configurations);
-        dd($dsn);
+        // dd($dsn);
         try {
             $pdo = new PDO($dsn,$username,$password);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -42,7 +41,7 @@ class RelationalConnector implements ConnectionTesterInterface
                 $dsn = "mysql:host=$host;port=$port;dbname=$database;charset=$charset";
                 break;
 
-            case 'PostgreSQL':
+            case 'PostgresSQL':
                 $dsn = "pgsql:host=$host;port=$port;dbname=$database";
                 break;
 

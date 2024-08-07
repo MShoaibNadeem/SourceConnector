@@ -14,9 +14,8 @@ class ConnectionTesterFactory
     {
         switch ($type) {
             case 'Database':
-
                 switch ($name){
-                    case "PostgreSQL":
+                    case "PostgresSQL":
                         return new RelationalConnector();
                     case "MongoDB":
                         return new MongodbConnector();

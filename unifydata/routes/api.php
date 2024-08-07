@@ -16,5 +16,4 @@ Route::prefix('sources')->group(function () {
         Route::get('/get-requirements/{id}', 'getConnectorRequirements')->whereAlphaNumeric('id');
         Route::post('/test-connection', 'testConnection');
     });
-
 });

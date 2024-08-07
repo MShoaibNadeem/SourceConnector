@@ -12,11 +12,10 @@ class ApiConnector implements ConnectionTesterInterface
         return $response->successful() ? [
             'success' => true,
             'message' => 'Connection successful',
-            'data' => $response->json()
         ] : [
             'success' => false,
             'message' => 'Connection failed',
-            'status' => $response->status()
+            'error' => $response->status()
         ];
     }
     private function makeAuthenticatedRequest($url, $authType, $authCredentials)
@@ -45,7 +44,6 @@ class ApiConnector implements ConnectionTesterInterface
             default:
                 throw new \Exception('Invalid authentication type');
         }
-
         return $response;
     }
 

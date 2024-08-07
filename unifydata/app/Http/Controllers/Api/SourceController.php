@@ -92,46 +92,47 @@ class SourceController extends Controller
     public function testConnection(Request $request)
     {
 
-        $configurations = [
-            'name' => $request->input('name'),
-            'type' => $request->input('type'),
-            'host' => $request->input('host'),
-            'port' => $request->input('port'),
-            'username'=>$request->input('username'),
-            'password'=>$request->input('password'),
-            'database' => $request->input('database'),
-        ];
+        // $source = AvailableSource::select('type', 'name')->where('_id', '=', $id)->firstOrFail();
+        // $type = $source->type;
+        // $name = $source->name;
+        $type = 'Database';
+        $name = "PostgresSQL";
 
-
-        $validated = $request->validate([
-            'type' => 'required|string',
-            'name' => 'required|string',
-            'host' => 'required|string',
-            'username' => 'nullable|string',
-            'password' => 'nullable|string',
-            'port' => 'required|string',
-            'database' => 'required|string',
+        $request->merge([
+            'type' => $type,
+            'name' => $name,
         ]);
-        // dd($request->input('type'));
-        // $configurations = [
-        //     'name' => $request->input('name'),
-        //     'type' => $request->input('type'),
-        //     'base_url' => $request->input('base_url'),
-        //     'auth_type' => $request->input('auth_type'),
-        //     'auth_credentials' => $request->input('auth_credentials'),
-        // ];
-
-        // // Validate the request data
-        // $validated= $request->validate([
-        //     'name' => 'required|string',
-        //     'type'=>'required|string',
-        //     'base_url' => 'required|url',
-        //     'auth_type' => 'required|string',
-        //     'auth_credentials' => 'nullable|array',
-        // ]);
+        // Validate the request data
+        $validated = $request->validate([
+            'name' => 'required',
+            'type' => 'required',
+            'base_url' => 'required_if:type,API|url',
+            'auth_type' => 'required_if:type,API|string',
+            'auth_credentials' => 'required_if:type,API|array|nullable',
+            'host' => 'required_if:type,Database|string',
+            'port' => 'required_if:type,Database|string',
+            'username' => 'required_if:type,Database|string|nullable',
+            'password' => 'required_if:type,Database|string|nullable',
+            'database' => 'required_if:type,Database|string',
+            // Add other conditional rules as needed for different types
+        ]);
+        // Extract validated data and filter out null values
+        $configurations = array_filter([
+            'name' => $validated['name'],
+            'type' => $validated['type'],
+            'base_url' => $validated['base_url'] ?? null,
+            'auth_type' => $validated['auth_type'] ?? null,
+            'auth_credentials' => $validated['auth_credentials'] ?? null,
+            'host' => $validated['host'] ?? null,
+            'port' => $validated['port'] ?? null,
+            'username' => $validated['username'] ?? null,
+            'password' => $validated['password'] ?? null,
+            'database' => $validated['database'] ?? null,
+        ], function ($value) {
+            return !is_null($value);
+        });
 
         $type = $validated['type'];
-
         $name = $validated['name'];
 
         try {
@@ -142,8 +143,8 @@ class SourceController extends Controller
             // dd($result);
 
             return response()->json([
-                'success' => $result,
-                'message' => $result ? 'Connection successful!' : 'Connection failed.',
+                'success' => $result['success'],
+                'message' => $result['success'] ? 'Connection successful!' : 'Connection failed: ' . $result['error'],
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -155,20 +156,15 @@ class SourceController extends Controller
 
     }
 
-    private function fetchConnectionStringFromGemini($name, $host, $port, $database)
-    {
-        $prompt = "Generate a connection string for the source $name of with the following configurations: host:$host, port:$port, database:$database.";
+    // public function createSource(Request $request, $id)
+    // {
+    //     Source::create([
+    //         'name' => $configurations['name'],
+    //         'type' => $configurations['type'],
+    //         'config' => json_encode($configurations),
+    //     ]);
+    // }
 
-        $response = Gemini::geminiPro()->generateContent($prompt);
 
-        // Fetching only the required part from the response
-        $textContent = $response->candidates[0]->content->parts[0]->text;
-
-        // Removing ``` from beginning and end
-        $trimmedText = trim($textContent, '`');
-        echo $trimmedText;
-        echo "\n";
-        return $trimmedText;
-    }
 }
 
