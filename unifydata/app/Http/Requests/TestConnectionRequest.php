@@ -9,6 +9,7 @@ class TestConnectionRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
+    
     public function authorize(): bool
     {
         return true;
@@ -29,8 +30,8 @@ class TestConnectionRequest extends FormRequest
             'auth_credentials' => 'required_if:type,API|array|nullable',
             'host' => 'required_if:type,Database|string',
             'port' => 'required_if:type,Database|string',
-            'username' => 'required_if:type,Database|string|nullable',
-            'password' => 'required_if:type,Database|string|nullable',
+            'username' => 'nullable|string',
+            'password' => 'nullable|string',
             'database' => 'required_if:type,Database|string',
         ];
     }

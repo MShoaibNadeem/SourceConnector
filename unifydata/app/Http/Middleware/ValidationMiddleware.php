@@ -18,9 +18,7 @@ class ValidationMiddleware
      */
     public function handle(Request $request, Closure $next , $key): Response
     {
-
         if ($key === 'Source') {
-
             app(AvailableSourceRequest::class);
         }
         if ($key === 'ReqValidate') {
@@ -28,13 +26,13 @@ class ValidationMiddleware
             $source = AvailableSource::getSourceById($id);
             $type = $source->type;
             $name = $source->name;
-
             // Merge the fetched data into the request
             $request->merge([
+                // 'type'=>'API',
+                // 'name'=>'connector'
                 'type' => $type,
                 'name' => $name,
             ]);
-
             app(TestConnectionRequest::class);
         }
         return $next($request);

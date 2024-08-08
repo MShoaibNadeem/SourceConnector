@@ -4,10 +4,11 @@ use Illuminate\Support\Facades\Http;
 
 class ApiConnector implements ConnectionTesterInterface
 {
+    //Main interface function
     public function testConnection($type,$name,array $configurations)
     {
         $url = $configurations['base_url'];
-        $response = $this->makeAuthenticatedRequest($url, $configurations['auth_type'], $configurations['auth_credentials']);
+        $response = $this->sendAuthenticatedRequest($url, $configurations['auth_type'], $configurations['auth_credentials']);
 
         return $response->successful() ? [
             'success' => true,
@@ -18,7 +19,8 @@ class ApiConnector implements ConnectionTesterInterface
             'error' => $response->status()
         ];
     }
-    private function makeAuthenticatedRequest($url, $authType, $authCredentials)
+    //Handling API on the bases of its auth_type
+    private function sendAuthenticatedRequest($url, $authType, $authCredentials)
     {
         $client = Http::withOptions(['base_uri' => $url]);
 
@@ -27,7 +29,7 @@ class ApiConnector implements ConnectionTesterInterface
                 $response = $client->get($url);
                 break;
             case 'API_Key':
-                $response = $this->handleApiKeyAuth($client, $url, $authCredentials);
+                $response = $this->processApiKeyAuth($client, $url, $authCredentials);
                 break;
             case 'Bearer':
                 $response = $client->withToken($authCredentials['token'])->get($url);
@@ -46,8 +48,8 @@ class ApiConnector implements ConnectionTesterInterface
         }
         return $response;
     }
-
-    private function handleApiKeyAuth($client, $url, $authCredentials)
+    //In case auth_type is API_Key handling parameter API is using
+    private function processApiKeyAuth($client, $url, $authCredentials)
     {
         $injectInto = $authCredentials['inject_into'];
         $paramName = $authCredentials['parameter_name'];
@@ -67,22 +69,21 @@ class ApiConnector implements ConnectionTesterInterface
                 throw new \Exception('Invalid injection method');
         }
     }
-
+    //In case of Query parameter building query
     private function injectApiKeyIntoUrl($url, $paramName, $apiKey)
     {
         $parsedUrl = parse_url($url);
         $query = isset($parsedUrl['query']) ? $parsedUrl['query'] . '&' : '';
         $query .= urlencode($paramName) . '=' . urlencode($apiKey);
-
         return $parsedUrl['scheme'] . '://' . $parsedUrl['host'] . $parsedUrl['path'] . '?' . $query;
     }
+    //Handling OAuth
     private function handleOAuthAuth($client, $authCredentials,$url)
     {
         $tokenUrl = $authCredentials['token_url'];
         $clientId = $authCredentials['client_id'];
         $clientSecret = $authCredentials['client_secret'];
         $scopes = $authCredentials['scopes'];
-
         // Fetch OAuth token
         $tokenResponse = $client->asForm()->post($tokenUrl, [
             'grant_type' => 'client_credentials',
@@ -90,14 +91,10 @@ class ApiConnector implements ConnectionTesterInterface
             'client_secret' => $clientSecret,
             'scope' => implode(' ', $scopes)
         ]);
-
         if ($tokenResponse->failed()) {
             throw new \Exception('Failed to obtain OAuth token: ' . $tokenResponse->body());
         }
-
         $accessToken = $tokenResponse->json()['access_token'];
-
-
         return $client->withToken($accessToken)->get($url);
     }
 }

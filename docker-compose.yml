@@ -23,6 +23,8 @@ services:
       - dbdata:/var/lib/postgresql/data
     ports:
       - "5433:5432"
+    # environment:
+    #    POSTGRES_PASSWORD: 12345
 
   mongo:
     image: mongo:latest
