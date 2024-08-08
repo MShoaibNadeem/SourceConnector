@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Source;
+use Illuminate\Http\Request;
 use App\Models\AvailableSource;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Response;
 use App\Factories\ConnectionTesterFactory;
-use Illuminate\Http\Request;
 
 class SourceController extends Controller
 {
@@ -41,16 +42,9 @@ class SourceController extends Controller
             // Initiate the appropriate connection tester
             $tester = ConnectionTesterFactory::create($type, $name);
             $result = $tester->testConnection($type, $name, $configurations);
-            return response()->json([
-                'success' => $result['success'],
-                'message' => $result['success'] ? 'Connection successful!' : 'Connection failed: ' . $result['error'],
-            ]);
+            return $result;
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Connection failed',
-                'error' => $e->getMessage(),
-            ]);
+            return Response::error('Connection failed',$e->getMessage(),400);
         }
     }
     //Create Source with user configurations against source
@@ -58,26 +52,14 @@ class SourceController extends Controller
     {
         //Fetch configuration from request and make an array of it
         $configurations = $this->getConfig($request);
-        $type = $request['type'];
-        $name = $request['name'];
-        $userId=Auth()->id();
-        try {
-            Source::create([
-                'name' => $name,
-                'type' => $type,
-                'userId'=>$userId,
-                'configurations' => json_encode($configurations),
-            ]);
-            return response()->json([
-                'success' => true,
-                'message' => 'Source created successfully!',
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage(),
-            ]);
+        $availableSource=AvailableSource::getImage($id);
+        $image=$availableSource->image;
+        if($image)
+        {
+            $source=Source::createSource($request,$image,$configurations);
+            return $source;
         }
+        return $availableSource;
     }
     //Helper function to create config array
     private function getConfig($request)

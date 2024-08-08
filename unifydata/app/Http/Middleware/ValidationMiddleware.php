@@ -8,6 +8,7 @@ use App\Models\AvailableSource;
 use App\Http\Requests\TestConnectionRequest;
 use App\Http\Requests\AvailableSourceRequest;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\DatabaseConnectionRequest;
 
 class ValidationMiddleware
 {
@@ -21,7 +22,7 @@ class ValidationMiddleware
         if ($key === 'Source') {
             app(AvailableSourceRequest::class);
         }
-        if ($key === 'ReqValidate') {
+        if ($key === 'Database') {
             $id = $request->route('id');
             $source = AvailableSource::getSourceById($id);
             $type = $source->type;
@@ -33,7 +34,7 @@ class ValidationMiddleware
                 'type' => $type,
                 'name' => $name,
             ]);
-            app(TestConnectionRequest::class);
+            app(DatabaseConnectionRequest::class);
         }
         return $next($request);
     }

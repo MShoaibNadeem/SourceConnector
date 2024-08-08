@@ -26,6 +26,15 @@ class AvailableSource extends Model
         return $source;
     }
 
+    public static function getImage($id)
+    {
+        $image=self::select('image')->where('_id','=',$id)->first();
+        if (!$image) {
+            throw new ModelNotFoundException('Source not found');
+        }
+        return $image;
+    }
+
     public static function fetchDataFromJson($jsonPath)
     {
         if (!File::exists($jsonPath)) {

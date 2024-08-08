@@ -2,6 +2,8 @@
 namespace App\Connectors;
 use PDO;
 use PDOException;
+use Illuminate\Support\Facades\Response;
+
 class RelationalConnector implements ConnectionTesterInterface
 {
     //Main Interface function
@@ -14,9 +16,9 @@ class RelationalConnector implements ConnectionTesterInterface
         try {
             $pdo = new PDO($dsn,$username,$password);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return ['success' => true, 'message' => 'Connection successful'];
+            return Response::success('Connection Successful',200);
         } catch (PDOException $e) {
-            return ['success' => false, 'message' => 'Connection failed', 'error' => $e->getMessage()];
+            return Response::error('Connection failed',$e->getMessage(),400);
         }
     }
     //Generating DSN on the basis of Database Name

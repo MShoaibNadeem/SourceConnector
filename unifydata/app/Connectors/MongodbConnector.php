@@ -2,6 +2,7 @@
 namespace App\Connectors;
 
 use MongoDB\Client as MongoClient;
+use Illuminate\Support\Facades\Response;
 use MongoDB\Exception\Exception as MongoException;
 
 class MongoDBConnector implements ConnectionTesterInterface
@@ -11,28 +12,8 @@ class MongoDBConnector implements ConnectionTesterInterface
         $host = $configurations['host'];
         $port = $configurations['port'];
         $database = $configurations['database'];
-        // $username = $configurations['username'] ?? '';
-        // $password = $configurations['password'] ?? '';
-        // $authSource = $configurations['authSource'] ?? '';
-        // $options = $configurations['options'] ?? [];
 
         $uri = "mongodb://{$host}:{$port}/{$database}";
-        // if ($username && $password) {
-        //     $uri .= "{$username}:{$password}@";
-        // }
-
-        // if ($authSource) {
-        //     $uri .= "?authSource=$authSource";
-        // }
-
-        // if ($options) {
-        //     // Add additional options to the connection string
-        //     foreach ($options as $key => $value) {
-        //         $uri .= "&$key=$value";
-        //     }
-        // }
-
-
         try {
             $client = new MongoClient($uri);
             $databases = $client->listDatabases();
@@ -45,13 +26,15 @@ class MongoDBConnector implements ConnectionTesterInterface
                 }
             }
             if (!$databaseExists) {
-                return ['success' => false, 'message' => 'Connection failed','error'=>'Database does not exist'];
+                return Response::error('Connection failed','Database does not exist',404);
+                // return ['success' => false, 'message' => 'Connection failed','error'=>'Database does not exist'];
             }
             $check = $client->selectDatabase($database);
             $check->command(['ping' => 1]);
-            return ['success' => true, 'message' => 'Connection successful'];
+            return Response::success('Connection Successful',200);
+            // return ['success' => true, 'message' => 'Connection successful'];
         } catch (MongoException $e) {
-            return ['success' => false, 'message' => 'Connection failed', 'error' => $e->getMessage()];
+            return Response::error('Connection failed',$e->getMessage(),400);
         }
     }
 

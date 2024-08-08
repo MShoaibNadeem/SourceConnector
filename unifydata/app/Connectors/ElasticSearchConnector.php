@@ -2,6 +2,7 @@
 namespace App\Connectors;
 use Exception;
 use Elastic\Elasticsearch\ClientBuilder;
+use Illuminate\Support\Facades\Response;
 
 
 class ElasticsearchConnector implements ConnectionTesterInterface
@@ -14,9 +15,9 @@ class ElasticsearchConnector implements ConnectionTesterInterface
 
         try {
             $client->ping();
-            return ['success' => true, 'message' => 'Connection successful'];
+            return Response::success('Connection Successful',200);
         } catch (Exception $e) {
-            return ['success' => false, 'message' => 'Connection failed', 'error' => $e->getMessage()];
+            return Response::error('Connection failed',$e->getMessage(),400);
         }
     }
 }

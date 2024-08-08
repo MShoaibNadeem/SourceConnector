@@ -11,11 +11,11 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('sources')->group(function () {
     Route::controller(SourceController::class)->group(function () {
-        Route::get('/existing', 'index');
+        Route::get('/get-existing-sources', 'index');
         Route::get('/get-sources', 'getAvailableSources');
         Route::get('/search/{name}', 'search')->whereAlphaNumeric('name');
-        Route::post('/test-connection/{id}', 'testConnection')->middleware('Validation:ReqValidate');
-        Route::post('/create-source/{id}', 'createSource')->middleware('Validation:ReqValidate');
+        Route::post('/test-connection/{id}', 'testConnection')->middleware('Validation:Database');
+        Route::post('/create-source/{id}', 'createSource')->middleware('Validation:Database');
     });
     Route::controller(SourceTemplateController::class)->group(function () {
         Route::get('/get-requirements-dynamic/{id}', 'getConnectorRequirements')->whereAlphaNumeric('id');

@@ -1,6 +1,7 @@
 <?php
 namespace App\Connectors;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Response;
 
 class ApiConnector implements ConnectionTesterInterface
 {
@@ -10,14 +11,8 @@ class ApiConnector implements ConnectionTesterInterface
         $url = $configurations['base_url'];
         $response = $this->sendAuthenticatedRequest($url, $configurations['auth_type'], $configurations['auth_credentials']);
 
-        return $response->successful() ? [
-            'success' => true,
-            'message' => 'Connection successful',
-        ] : [
-            'success' => false,
-            'message' => 'Connection failed',
-            'error' => $response->status()
-        ];
+        return $response->successful() ? Response::success('Connection Successful',200) :
+        Response::error('Connection failed',$response->status(),400);
     }
     //Handling API on the bases of its auth_type
     private function sendAuthenticatedRequest($url, $authType, $authCredentials)

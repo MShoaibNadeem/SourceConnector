@@ -1,7 +1,8 @@
 <?php
 namespace App\Connectors;
-use Predis\Client;
 use Exception;
+use Predis\Client;
+use Illuminate\Support\Facades\Response;
 
 class RedisConnector implements ConnectionTesterInterface
 {
@@ -9,15 +10,15 @@ class RedisConnector implements ConnectionTesterInterface
     {
         $client = new Client([
             'scheme' => $configurations['scheme'] ?? 'tcp',
-            'host'   => $configurations['host'] ?? '127.0.0.1',
-            'port'   => $configurations['port'] ?? 6379,
+            'host'   => $configurations['host'],
+            'port'   => $configurations['port'],
         ]);
 
         try {
             $client->connect();
-            return ['success' => true, 'message' => 'Connection successful'];
+            return Response::success('Connection Successful',200);
         } catch (Exception $e) {
-            return ['success' => false, 'message' => 'Connection failed', 'error' => $e->getMessage()];
+            return Response::error('Connection failed',$e->getMessage(),400);
         }
     }
 }
