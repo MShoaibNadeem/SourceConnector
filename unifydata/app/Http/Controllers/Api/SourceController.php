@@ -8,7 +8,7 @@ use App\Models\AvailableSource;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
 use App\Factories\ConnectionTesterFactory;
-
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 class SourceController extends Controller
 {
     // Get Exisitng Sources
@@ -22,7 +22,10 @@ class SourceController extends Controller
     // 1 - Source name as parameter
     public function search($name)
     {
-        $source = AvailableSource::where('name', 'like', $name, '%')->get();
+        $source = AvailableSource::where('name', 'LIKE', $name . '%')->get();
+        if (count($source)==0) {
+            throw new ModelNotFoundException('Source not found');
+        }
         return response()->json($source);
     }
     // Get Available Sources

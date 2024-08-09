@@ -20,8 +20,8 @@ class SourceTemplate extends Model
         'config' => 'array',
     ];
 
-    public static function getRequirements($id){
-        $source=self::where('_id',$id)->get();
+    public static function getRequirements($type,$name){
+        $source=self::where('type',$type)->where('name',$name)->get();
         return $source;
     }
     public static function getSourceById($id)

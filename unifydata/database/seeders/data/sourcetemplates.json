@@ -1,0 +1,1621 @@
+[
+    {
+        "name": "Twitter API",
+        "type": "API",
+        "image": "public/images/twitter.png",
+        "fields": [
+            {
+                "label": "Base URL",
+                "name": "base_url",
+                "type": "text",
+                "required": true
+            },
+            {
+                "label": "Authentication Type",
+                "name": "auth_type",
+                "type": "select",
+                "options": [
+                    "No_Auth",
+                    "API_Key",
+                    "Bearer",
+                    "Basic_HTTP",
+                    "Session_Token",
+                    "OAuth"
+                ],
+                "required": true
+            },
+            {
+                "label": "API Key",
+                "name": "auth_credentials[api_key]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "API_Key"
+                }
+            },
+            {
+                "label": "Inject Into",
+                "name": "auth_credentials[inject_into]",
+                "type": "select",
+                "options": [
+                    "Query Parameter",
+                    "Header",
+                    "Body data (urlencoded form)",
+                    "Body JSON payload"
+                ],
+                "conditional": {
+                    "auth_type": "API_Key"
+                }
+            },
+            {
+                "label": "Parameter Name",
+                "name": "auth_credentials[parameter_name]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "API_Key"
+                }
+            },
+            {
+                "label": "Bearer Token",
+                "name": "auth_credentials[token]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "Bearer"
+                }
+            },
+            {
+                "label": "Username",
+                "name": "auth_credentials[username]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "Basic_HTTP"
+                }
+            },
+            {
+                "label": "Password",
+                "name": "auth_credentials[password]",
+                "type": "password",
+                "conditional": {
+                    "auth_type": "Basic_HTTP"
+                }
+            },
+            {
+                "label": "Session Token",
+                "name": "auth_credentials[session_token]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "Session_Token"
+                }
+            },
+            {
+                "label": "Token URL",
+                "name": "auth_credentials[token_url]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            },
+            {
+                "label": "Client ID",
+                "name": "auth_credentials[client_id]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            },
+            {
+                "label": "Client Secret",
+                "name": "auth_credentials[client_secret]",
+                "type": "password",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            },
+            {
+                "label": "Scopes",
+                "name": "auth_credentials[scopes]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Facebook API",
+        "type": "API",
+        "image": "public/images/facebook.png",
+        "fields": [
+            {
+                "label": "Base URL",
+                "name": "base_url",
+                "type": "text",
+                "required": true
+            },
+            {
+                "label": "Authentication Type",
+                "name": "auth_type",
+                "type": "select",
+                "options": [
+                    "Bearer",
+                    "OAuth"
+                ],
+                "required": true
+            },
+            {
+                "label": "Bearer Token",
+                "name": "auth_credentials[token]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "Bearer"
+                }
+            },
+            {
+                "label": "Token URL",
+                "name": "auth_credentials[token_url]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            },
+            {
+                "label": "Client ID",
+                "name": "auth_credentials[client_id]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            },
+            {
+                "label": "Client Secret",
+                "name": "auth_credentials[client_secret]",
+                "type": "password",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Google Sheets API",
+        "type": "API",
+        "image": "public/images/google-sheets.png",
+        "fields": [
+            {
+                "label": "Base URL",
+                "name": "base_url",
+                "type": "text",
+                "required": true
+            },
+            {
+                "label": "Authentication Type",
+                "name": "auth_type",
+                "type": "select",
+                "options": [
+                    "Bearer",
+                    "OAuth"
+                ],
+                "required": true
+            },
+            {
+                "label": "Bearer Token",
+                "name": "auth_credentials[token]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "Bearer"
+                }
+            },
+            {
+                "label": "Token URL",
+                "name": "auth_credentials[token_url]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            },
+            {
+                "label": "Client ID",
+                "name": "auth_credentials[client_id]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            },
+            {
+                "label": "Client Secret",
+                "name": "auth_credentials[client_secret]",
+                "type": "password",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Dropbox API",
+        "type": "API",
+        "image": "public/images/dropbox.png",
+        "fields": [
+            {
+                "label": "Base URL",
+                "name": "base_url",
+                "type": "text",
+                "required": true
+            },
+            {
+                "label": "Authentication Type",
+                "name": "auth_type",
+                "type": "select",
+                "options": [
+                    "Bearer",
+                    "OAuth"
+                ],
+                "required": true
+            },
+            {
+                "label": "Bearer Token",
+                "name": "auth_credentials[token]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "Bearer"
+                }
+            },
+            {
+                "label": "Token URL",
+                "name": "auth_credentials[token_url]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            },
+            {
+                "label": "Client ID",
+                "name": "auth_credentials[client_id]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            },
+            {
+                "label": "Client Secret",
+                "name": "auth_credentials[client_secret]",
+                "type": "password",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            }
+        ]
+    },
+    {
+        "name": "OneDrive API",
+        "type": "API",
+        "image": "public/images/onedrive.png",
+        "fields": [
+            {
+                "label": "Base URL",
+                "name": "base_url",
+                "type": "text",
+                "required": true
+            },
+            {
+                "label": "Authentication Type",
+                "name": "auth_type",
+                "type": "select",
+                "options": [
+                    "Bearer",
+                    "OAuth"
+                ],
+                "required": true
+            },
+            {
+                "label": "Bearer Token",
+                "name": "auth_credentials[token]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "Bearer"
+                }
+            },
+            {
+                "label": "Token URL",
+                "name": "auth_credentials[token_url]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            },
+            {
+                "label": "Client ID",
+                "name": "auth_credentials[client_id]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            },
+            {
+                "label": "Client Secret",
+                "name": "auth_credentials[client_secret]",
+                "type": "password",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Kafka",
+        "type": "API",
+        "image": "public/images/kafka.png",
+        "fields": [
+            {
+                "label": "Endpoint",
+                "name": "endpoint",
+                "type": "text",
+                "required": true
+            },
+            {
+                "label": "Authentication Type",
+                "name": "auth_type",
+                "type": "select",
+                "options": [
+                    "API_Key",
+                    "Bearer",
+                    "OAuth"
+                ],
+                "required": false
+            },
+            {
+                "label": "API Key",
+                "name": "auth_credentials[api_key]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "API_Key"
+                }
+            },
+            {
+                "label": "Bearer Token",
+                "name": "auth_credentials[token]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "Bearer"
+                }
+            },
+            {
+                "label": "Token URL",
+                "name": "auth_credentials[token_url]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            },
+            {
+                "label": "Client ID",
+                "name": "auth_credentials[client_id]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            },
+            {
+                "label": "Client Secret",
+                "name": "auth_credentials[client_secret]",
+                "type": "password",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            }
+        ]
+    },
+    {
+        "name": "RabbitMQ",
+        "type": "API",
+        "image": "public/images/rabitmq.png",
+        "fields": [
+            {
+                "label": "Endpoint",
+                "name": "endpoint",
+                "type": "text",
+                "required": true
+            },
+            {
+                "label": "Authentication Type",
+                "name": "auth_type",
+                "type": "select",
+                "options": [
+                    "Bearer",
+                    "OAuth"
+                ],
+                "required": false
+            },
+            {
+                "label": "Bearer Token",
+                "name": "auth_credentials[token]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "Bearer"
+                }
+            },
+            {
+                "label": "Token URL",
+                "name": "auth_credentials[token_url]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            },
+            {
+                "label": "Client ID",
+                "name": "auth_credentials[client_id]",
+                "type": "text",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            },
+            {
+                "label": "Client Secret",
+                "name": "auth_credentials[client_secret]",
+                "type": "password",
+                "conditional": {
+                    "auth_type": "OAuth"
+                }
+            }
+        ]
+    },
+{
+  "name": "JIRA API",
+  "type": "API",
+  "image": "public/images/jira.png",
+  "fields": [
+    {
+      "label": "Base URL",
+      "name": "base_url",
+      "type": "text",
+      "required": true
+    },
+    {
+      "label": "Authentication Type",
+      "name": "auth_type",
+      "type": "select",
+      "options": ["Basic_HTTP", "OAuth"],
+      "required": true
+    },
+    {
+      "label": "Username",
+      "name": "auth_credentials[username]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "Basic_HTTP"
+      }
+    },
+    {
+      "label": "Password",
+      "name": "auth_credentials[password]",
+      "type": "password",
+      "conditional": {
+        "auth_type": "Basic_HTTP"
+      }
+    },
+    {
+      "label": "Token URL",
+      "name": "auth_credentials[token_url]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    },
+    {
+      "label": "Client ID",
+      "name": "auth_credentials[client_id]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    },
+    {
+      "label": "Client Secret",
+      "name": "auth_credentials[client_secret]",
+      "type": "password",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    }
+  ]
+},
+{
+  "name": "Trello API",
+  "type": "API",
+  "image": "public/images/trello.png",
+  "fields": [
+    {
+      "label": "Base URL",
+      "name": "base_url",
+      "type": "text",
+      "required": true
+    },
+    {
+      "label": "Authentication Type",
+      "name": "auth_type",
+      "type": "select",
+      "options": ["OAuth"],
+      "required": true
+    },
+    {
+      "label": "Token URL",
+      "name": "auth_credentials[token_url]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    },
+    {
+      "label": "Client ID",
+      "name": "auth_credentials[client_id]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    },
+    {
+      "label": "Client Secret",
+      "name": "auth_credentials[client_secret]",
+      "type": "password",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    }
+  ]
+},
+{
+  "name": "Slack API",
+  "type": "API",
+  "image": "public/images/slack.png",
+  "fields": [
+    {
+      "label": "Base URL",
+      "name": "base_url",
+      "type": "text",
+      "required": true
+    },
+    {
+      "label": "Authentication Type",
+      "name": "auth_type",
+      "type": "select",
+      "options": ["Bearer"],
+      "required": true
+    },
+    {
+      "label": "Bearer Token",
+      "name": "auth_credentials[token]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "Bearer"
+      }
+    }
+  ]
+},
+{
+  "name": "GitHub API",
+  "type": "API",
+  "image": "public/images/github.png",
+  "fields": [
+    {
+      "label": "Base URL",
+      "name": "base_url",
+      "type": "text",
+      "required": true
+    },
+    {
+      "label": "Authentication Type",
+      "name": "auth_type",
+      "type": "select",
+      "options": ["Bearer", "OAuth"],
+      "required": true
+    },
+    {
+      "label": "Bearer Token",
+      "name": "auth_credentials[token]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "Bearer"
+      }
+    },
+    {
+      "label": "Token URL",
+      "name": "auth_credentials[token_url]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    },
+    {
+      "label": "Client ID",
+      "name": "auth_credentials[client_id]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    },
+    {
+      "label": "Client Secret",
+      "name": "auth_credentials[client_secret]",
+      "type": "password",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    }
+  ]
+},
+{
+  "name": "GitLab API",
+  "type": "API",
+  "image": "public/images/gitlab.png",
+  "fields": [
+    {
+      "label": "Base URL",
+      "name": "base_url",
+      "type": "text",
+      "required": true
+    },
+    {
+      "label": "Authentication Type",
+      "name": "auth_type",
+      "type": "select",
+      "options": ["Bearer", "OAuth"],
+      "required": true
+    },
+    {
+      "label": "Bearer Token",
+      "name": "auth_credentials[token]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "Bearer"
+      }
+    },
+    {
+      "label": "Token URL",
+      "name": "auth_credentials[token_url]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    },
+    {
+      "label": "Client ID",
+      "name": "auth_credentials[client_id]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    },
+    {
+      "label": "Client Secret",
+      "name": "auth_credentials[client_secret]",
+      "type": "password",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    }
+  ]
+},
+{
+  "name": "Bitbucket API",
+  "type": "API",
+  "image": "public/images/bitbucket.png",
+  "fields": [
+    {
+      "label": "Base URL",
+      "name": "base_url",
+      "type": "text",
+      "required": true
+    },
+    {
+      "label": "Authentication Type",
+      "name": "auth_type",
+      "type": "select",
+      "options": ["Bearer", "OAuth"],
+      "required": true
+    },
+    {
+      "label": "Bearer Token",
+      "name": "auth_credentials[token]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "Bearer"
+      }
+    },
+    {
+      "label": "Token URL",
+      "name": "auth_credentials[token_url]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    },
+    {
+      "label": "Client ID",
+      "name": "auth_credentials[client_id]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    },
+    {
+      "label": "Client Secret",
+      "name": "auth_credentials[client_secret]",
+      "type": "password",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    }
+  ]
+},
+{
+  "name": "Salesforce API",
+  "type": "API",
+  "image": "public/images/salesforce.png",
+  "fields": [
+    {
+      "label": "Base URL",
+      "name": "base_url",
+      "type": "text",
+      "required": true
+    },
+    {
+      "label": "Authentication Type",
+      "name": "auth_type",
+      "type": "select",
+      "options": ["Bearer", "OAuth"],
+      "required": true
+    },
+    {
+      "label": "Bearer Token",
+      "name": "auth_credentials[token]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "Bearer"
+      }
+    },
+    {
+      "label": "Token URL",
+      "name": "auth_credentials[token_url]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    },
+    {
+      "label": "Client ID",
+      "name": "auth_credentials[client_id]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    },
+    {
+      "label": "Client Secret",
+      "name": "auth_credentials[client_secret]",
+      "type": "password",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    }
+  ]
+},
+{
+  "name": "HubSpot API",
+  "type": "API",
+  "image": "public/images/hubspot.png",
+  "fields": [
+    {
+      "label": "Base URL",
+      "name": "base_url",
+      "type": "text",
+      "required": true
+    },
+    {
+      "label": "Authentication Type",
+      "name": "auth_type",
+      "type": "select",
+      "options": ["Bearer", "OAuth"],
+      "required": true
+    },
+    {
+      "label": "Bearer Token",
+      "name": "auth_credentials[token]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "Bearer"
+      }
+    },
+    {
+      "label": "Token URL",
+      "name": "auth_credentials[token_url]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    },
+    {
+      "label": "Client ID",
+      "name": "auth_credentials[client_id]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    },
+    {
+      "label": "Client Secret",
+      "name": "auth_credentials[client_secret]",
+      "type": "password",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    }
+  ]
+},
+{
+  "name": "Zendesk API",
+  "type": "API",
+  "image": "public/images/zendesk.png",
+  "fields": [
+    {
+      "label": "Base URL",
+      "name": "base_url",
+      "type": "text",
+      "required": true
+    },
+    {
+      "label": "Authentication Type",
+      "name": "auth_type",
+      "type": "select",
+      "options": ["Basic_HTTP", "OAuth"],
+      "required": true
+    },
+    {
+      "label": "Username",
+      "name": "auth_credentials[username]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "Basic_HTTP"
+      }
+    },
+    {
+      "label": "Password",
+      "name": "auth_credentials[password]",
+      "type": "password",
+      "conditional": {
+        "auth_type": "Basic_HTTP"
+      }
+    },
+    {
+      "label": "Token URL",
+      "name": "auth_credentials[token_url]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    },
+    {
+      "label": "Client ID",
+      "name": "auth_credentials[client_id]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    },
+    {
+      "label": "Client Secret",
+      "name": "auth_credentials[client_secret]",
+      "type": "password",
+      "conditional": {
+        "auth_type": "OAuth"
+      }
+    }
+  ]
+},
+
+{
+  "name": "Stripe API",
+  "type": "API",
+  "image": "public/images/stripe.png",
+  "fields": [
+    {
+      "label": "Base URL",
+      "name": "base_url",
+      "type": "text",
+      "required": true
+    },
+    {
+      "label": "Authentication Type",
+      "name": "auth_type",
+      "type": "select",
+      "options": ["Bearer"],
+      "required": true
+    },
+    {
+      "label": "Bearer Token",
+      "name": "auth_credentials[token]",
+      "type": "text",
+      "conditional": {
+        "auth_type": "Bearer"
+      }
+    }
+  ]
+},
+{
+    "name": "PayPal API",
+    "type": "API",
+    "image": "public/images/paypal.png",
+    "fields": [
+      {
+        "label": "Base URL",
+        "name": "base_url",
+        "type": "text",
+        "required": true
+      },
+      {
+        "label": "Authentication Type",
+        "name": "auth_type",
+        "type": "select",
+        "options": ["Bearer", "OAuth"],
+        "required": true
+      },
+      {
+        "label": "Bearer Token",
+        "name": "auth_credentials[token]",
+        "type": "text",
+        "conditional": {
+          "auth_type": "Bearer"
+        }
+      },
+      {
+        "label": "Token URL",
+        "name": "auth_credentials[token_url]",
+        "type": "text",
+        "conditional": {
+          "auth_type": "OAuth"
+        }
+      },
+      {
+        "label": "Client ID",
+        "name": "auth_credentials[client_id]",
+        "type": "text",
+        "conditional": {
+          "auth_type": "OAuth"
+        }
+      },
+      {
+        "label": "Client Secret",
+        "name": "auth_credentials[client_secret]",
+        "type": "password",
+        "conditional": {
+          "auth_type": "OAuth"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Square API",
+    "type": "API",
+    "image": "public/images/square.png",
+    "fields": [
+      {
+        "label": "Base URL",
+        "name": "base_url",
+        "type": "text",
+        "required": true
+      },
+      {
+        "label": "Authentication Type",
+        "name": "auth_type",
+        "type": "select",
+        "options": ["Bearer"],
+        "required": true
+      },
+      {
+        "label": "Bearer Token",
+        "name": "auth_credentials[token]",
+        "type": "text",
+        "conditional": {
+          "auth_type": "Bearer"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Shopify API",
+    "type": "API",
+    "image": "public/images/shopify.png",
+    "fields": [
+      {
+        "label": "Base URL",
+        "name": "base_url",
+        "type": "text",
+        "required": true
+      },
+      {
+        "label": "Authentication Type",
+        "name": "auth_type",
+        "type": "select",
+        "options": ["Bearer"],
+        "required": true
+      },
+      {
+        "label": "Bearer Token",
+        "name": "auth_credentials[token]",
+        "type": "text",
+        "conditional": {
+          "auth_type": "Bearer"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Magento API",
+    "type": "API",
+    "image": "public/images/magento.png",
+    "fields": [
+      {
+        "label": "Base URL",
+        "name": "base_url",
+        "type": "text",
+        "required": true
+      },
+      {
+        "label": "Authentication Type",
+        "name": "auth_type",
+        "type": "select",
+        "options": ["Bearer"],
+        "required": true
+      },
+      {
+        "label": "Bearer Token",
+        "name": "auth_credentials[token]",
+        "type": "text",
+        "conditional": {
+          "auth_type": "Bearer"
+        }
+      }
+    ]
+  },
+  {
+    "name": "WooCommerce API",
+    "type": "API",
+    "image": "public/images/woocommerce.png",
+    "fields": [
+      {
+        "label": "Base URL",
+        "name": "base_url",
+        "type": "text",
+        "required": true
+      },
+      {
+        "label": "Authentication Type",
+        "name": "auth_type",
+        "type": "select",
+        "options": ["Basic_HTTP"],
+        "required": true
+      },
+      {
+        "label": "Username",
+        "name": "auth_credentials[username]",
+        "type": "text",
+        "conditional": {
+          "auth_type": "Basic_HTTP"
+        }
+      },
+      {
+        "label": "Password",
+        "name": "auth_credentials[password]",
+        "type": "password",
+        "conditional": {
+          "auth_type": "Basic_HTTP"
+        }
+      }
+    ]
+  },
+    {
+        "name": "MySQL",
+        "type": "Database",
+        "image": "public/images/mysql.png",
+        "fields": [
+            {
+                "name": "host",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "port",
+                "type": "integer",
+                "required": true
+            },
+            {
+                "name": "database",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "username",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "charset",
+                "type": "string",
+                "required": false,
+                "default": "utf8mb4"
+            }
+        ]
+    },
+    {
+        "name": "PostgreSQL",
+        "type": "Database",
+        "image": "public/images/postgres.png",
+        "fields": [
+            {
+                "name": "host",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "port",
+                "type": "integer",
+                "required": true
+            },
+            {
+                "name": "database",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "username",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "MongoDB",
+        "type": "Database",
+        "image": "public/images/mongo.png",
+        "fields": [
+            {
+                "name": "host",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "port",
+                "type": "integer",
+                "required": true
+            },
+            {
+                "name": "database",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "username",
+                "type": "string",
+                "required": false
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": false
+            }
+        ]
+    },
+    {
+        "name": "SQLite",
+        "type": "Database",
+        "image": "public/images/sqlite.png",
+        "fields": [
+            {
+                "name": "database",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "Microsoft SQL Server",
+        "type": "Database",
+        "image": "public/images/sqlserver.png",
+        "fields": [
+            {
+                "name": "host",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "port",
+                "type": "integer",
+                "required": true
+            },
+            {
+                "name": "database",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "username",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "Oracle Database",
+        "type": "Database",
+        "image": "public/images/oracle.png",
+        "fields": [
+            {
+                "name": "host",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "port",
+                "type": "integer",
+                "required": true
+            },
+            {
+                "name": "database",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "username",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "charset",
+                "type": "string",
+                "required": false,
+                "default": "utf8mb4"
+            }
+        ]
+    },
+    {
+        "name": "Firebase Realtime Database",
+        "type": "Database",
+        "image": "public/images/firebase.png",
+        "fields": [
+            {
+                "name": "databaseURL",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "serviceAccountKeyFile",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "Amazon RDS",
+        "type": "Database",
+        "image": "public/images/amazonrds.png",
+        "fields": [
+            {
+                "name": "host",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "port",
+                "type": "integer",
+                "required": true
+            },
+            {
+                "name": "database",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "username",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "engine",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "IBM Db2",
+        "type": "Database",
+        "image": "public/images/ibm.png",
+        "fields": [
+            {
+                "name": "host",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "port",
+                "type": "integer",
+                "required": true
+            },
+            {
+                "name": "database",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "username",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "Cassandra",
+        "type": "Database",
+        "image": "public/images/cassandra.png",
+        "fields": [
+            {
+                "name": "host",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "port",
+                "type": "integer",
+                "required": true
+            },
+            {
+                "name": "keyspace",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "username",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "Redis",
+        "type": "Database",
+        "image": "public/images/redis.png",
+        "fields": [
+            {
+                "name": "host",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "port",
+                "type": "integer",
+                "required": true
+            },
+            {
+                "name": "database",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": false
+            }
+        ]
+    },
+    {
+        "name": "DynamoDB",
+        "type": "Database",
+        "image": "public/images/dynamo.png",
+        "fields": [
+            {
+                "name": "region",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "accessKeyId",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "secretAccessKey",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "tableName",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "Elasticsearch",
+        "type": "Database",
+        "image": "public/images/elasticsearch.png",
+        "fields": [
+            {
+                "name": "host",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "port",
+                "type": "integer",
+                "required": true
+            },
+            {
+                "name": "username",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "InfluxDB",
+        "type": "Database",
+        "image": "public/images/influx.png",
+        "fields": [
+            {
+                "name": "host",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "port",
+                "type": "integer",
+                "required": true
+            },
+            {
+                "name": "database",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "username",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "Apache HBase",
+        "type": "Database",
+        "image": "public/images/Hbase.png",
+        "fields": [
+            {
+                "name": "host",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "port",
+                "type": "integer",
+                "required": true
+            },
+            {
+                "name": "database",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "username",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "Google BigQuery",
+        "type": "Database",
+        "image": "public/images/bigquery.png",
+        "fields": [
+            {
+                "name": "projectId",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "datasetId",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "jsonKeyFile",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "Snowflake",
+        "type": "Database",
+        "image": "public/images/snowflake.png",
+        "fields": [
+            {
+                "name": "host",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "username",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "database",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "warehouse",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "role",
+                "type": "string",
+                "required": true
+            }
+        ]
+    }
+]

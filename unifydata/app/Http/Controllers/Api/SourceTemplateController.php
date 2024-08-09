@@ -46,7 +46,10 @@ class SourceTemplateController extends Controller
     }
 
     public function getTemplateFromDatabase($id){
-        $source=SourceTemplate::getRequirements($id);
+        $source = AvailableSource::getSourceById($id);
+        $type = $source->type;
+        $name = $source->name;
+        $source=SourceTemplate::getRequirements($type,$name);
         return response()->json($source[0]->fields);
     }
 }

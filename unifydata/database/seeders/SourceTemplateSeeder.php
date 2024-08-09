@@ -13,7 +13,7 @@ class SourceTemplateSeeder extends Seeder
      */
     public function run(): void
     {
-        $jsonPath = database_path('seeders/data/sourca.json');
+        $jsonPath = database_path('seeders/data/sourcetemplates.json');
 
         try {
             // Fetch the data from the JSON file

@@ -6,71 +6,112 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class TestConnectionRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-
-    public function authorize(): bool
+    public function authorize()
     {
-        return true;
+        return true; // Update with your authorization logic
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
+    public function rules()
     {
-        return [
-            'name' => 'required',
-            'type' => 'required',
-            'base_url' => 'required_if:type,API|url',
-            'auth_type' => 'required_if:type,API|string',
-            'auth_credentials' => 'required_if:type,API|array|nullable',
-            'host' => 'required_if:type,Database|string',
-            'port' => 'required_if:type,Database|string',
-            'username' => 'nullable|string',
-            'password' => 'nullable|string',
-            'database' => 'required_if:type,Database|string',
-        ];
-    }
+        $type = $this->input('type');
+        $name = $this->input('name');
 
-    /**
-     * Sanitize the validated data.
-     *
-     * @return void
-     */
-    protected function passedValidation()
-    {
-        $this->merge([
-            'name' => filter_var($this->input('name'), FILTER_SANITIZE_STRING),
-            'type' => filter_var($this->input('type'), FILTER_SANITIZE_STRING),
-            'base_url' => filter_var($this->input('base_url'), FILTER_SANITIZE_URL),
-            'auth_type' => filter_var($this->input('auth_type'), FILTER_SANITIZE_STRING),
-            'auth_credentials' => $this->sanitizeAuthCredentials($this->input('auth_credentials')),
-            'host' => filter_var($this->input('host'), FILTER_SANITIZE_STRING),
-            'port' => filter_var($this->input('port'), FILTER_SANITIZE_STRING),
-            'username' => filter_var($this->input('username'), FILTER_SANITIZE_STRING),
-            'password' => filter_var($this->input('password'), FILTER_SANITIZE_STRING),
-            'database' => filter_var($this->input('database'), FILTER_SANITIZE_STRING),
-        ]);
-    }
+        if ($type == 'Database') {
+            $rules = [
+                'username' => 'required|string',
+                'password' => 'required|string',
+                'host' => 'required|string',
+                'port' => 'required|integer',
+                'database' => 'required|string',
+            ];
 
-    /**
-     * Sanitize auth credentials.
-     *
-     * @param array|null $credentials
-     * @return array|null
-     */
-    private function sanitizeAuthCredentials($credentials)
-    {
-        if (is_array($credentials)) {
-            return array_map(function($item) {
-                return filter_var($item, FILTER_SANITIZE_STRING);
-            }, $credentials);
+            // Add specific rules based on the database name
+            switch ($name) {
+                case 'MySQL':
+                case 'InfluxDB':
+                case 'MariaDB':
+                case 'PostgreSQL':
+                case 'Google Cloud SQL':
+                case 'SQLite':
+                case 'Sybase':
+                case 'Oracle Database':
+                case 'Microsoft SQL Server':
+                case 'IBM Db2':
+                case 'SAP HANA':
+                case 'Teradata':
+                case 'Snowflake':
+                case 'Informix':
+                case 'Amazon Aurora':
+                    $rules['charset'] = 'nullable|string';
+                    break;
+                case 'MongoDB':
+                    $rules = [
+                        'database' => 'required|string',
+                        'username' => 'nullable|string',
+                        'password' => 'nullable|string',
+                    ];
+                    break;
+                case 'Elasticsearch':
+                    $rules = [
+                        'hosts' => 'required|array',
+                        'port' => 'nullable|integer',
+                        'username' => 'nullable|string',
+                        'password' => 'nullable|string',
+                    ];
+                    break;
+                case "Redis":
+                    $rules = [
+                        'host' => 'required|string',
+                        'port' => 'nullable|integer',
+                        'scheme' => 'nullable|string',
+                    ];
+                    break;
+                default:
+                    throw new \InvalidArgumentException("Unsupported database type: $type");
+            }
+
+            return $rules;
+        }
+        //Write code for API here Hamza bhai
+        elseif ($type == 'API') {
+            $rules = [
+                'base_url' => 'required|url',
+                'auth_type' => 'required|string|in:No_Auth,API_Key,Bearer,Basic_HTTP,Session_Token,OAuth',
+            ];
+
+            switch ($this->input('auth_type')) {
+                case 'API_Key':
+                    $rules['auth_credentials.api_key'] = 'required|string';
+                    $rules['auth_credentials.inject_into'] = 'required|string|in:Query Parameter,Header,Body data (urlencoded form),Body JSON payload';
+                    $rules['auth_credentials.parameter_name'] = 'required|string';
+                    break;
+                case 'Bearer':
+                    $rules['auth_credentials.token'] = 'required|string';
+                    break;
+
+                case 'Basic_HTTP':
+                    $rules['auth_credentials.username'] = 'required|string';
+                    $rules['auth_credentials.password'] = 'required|string';
+                    break;
+
+                case 'Session_Token':
+                    $rules['auth_credentials.session_token'] = 'required|string';
+                    break;
+
+                case 'OAuth':
+                    $rules['auth_credentials.token_url'] = 'required|url';
+                    $rules['auth_credentials.client_id'] = 'required|string';
+                    $rules['auth_credentials.client_secret'] = 'required|string';
+                    $rules['auth_credentials.scopes'] = 'nullable|string';
+                    break;
+
+                case 'No_Auth':
+                default:
+                    break;
+            }
+            return $rules;
         }
 
-        return null;
+
     }
 }
